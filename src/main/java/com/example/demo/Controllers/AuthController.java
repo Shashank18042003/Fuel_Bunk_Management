@@ -45,13 +45,24 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, Model model) {
+	public String login(@RequestParam String email, @RequestParam String password,String role, Model model) {
 
 		String response = authService.login(email, password);
 
 		model.addAttribute("message", response);
 
-		return "dashboard";
+		if (response.equals("USER_DASHBOARD")) {
+	        return "user/user-dashboard";
+	    } 
+	    else if (response.equals("ADMIN_DASHBOARD")) {
+	        return "admin/admin-dashboard";
+	    } 
+	    else if (response.startsWith("MANAGER_DASHBOARD")) {
+	        return "manager/manager-dashboard";
+	    }
+
+	    model.addAttribute("message", response);
+	    return "login";
 
 	}
 }

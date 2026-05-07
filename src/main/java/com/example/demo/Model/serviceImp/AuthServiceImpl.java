@@ -21,11 +21,12 @@ public class AuthServiceImpl implements AuthService {
         Optional<User> existingUser =
                 userRepository.findByEmail(user.getEmail());
 
-        if(existingUser.isPresent()) {
+        if (existingUser.isPresent()) {
             throw new RuntimeException("Email already exists");
         }
 
         user.setStatus("ACTIVE");
+        user.setCreatedAt(java.time.LocalDateTime.now());
 
         return userRepository.save(user);
     }
@@ -34,21 +35,39 @@ public class AuthServiceImpl implements AuthService {
     public String login(String email, String password) {
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("Invalid Email"));
+                .orElseThrow(() -> new RuntimeException("Invalid Email"));
 
-        if(!user.getPassword().equals(password)) {
+        // ✅ Password check
+        if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid Password");
         }
 
-        return "LOGIN SUCCESS";
+        // ✅ Get role from DB (IMPORTANT)
+        String role = user.getRole();
+
+        // ✅ Role-based response
+        if (role.equalsIgnoreCase("USER")) {
+            return "USER_DASHBOARD";
+        } 
+        else if (role.equalsIgnoreCase("ADMIN")) {
+            return "ADMIN_DASHBOARD";
+        } 
+        else if (role.equalsIgnoreCase("MANAGER")) {
+
+            // Manager must have branch
+            if (user.getBranch() == null) {
+                throw new RuntimeException("Branch not assigned");
+            }
+
+            return "MANAGER_DASHBOARD_" + user.getBranch().getId();
+        }
+
+        throw new RuntimeException("Invalid Role");
     }
 
     @Override
     public User getUserByEmail(String email) {
-
         return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("User Not Found"));
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
     }
 }

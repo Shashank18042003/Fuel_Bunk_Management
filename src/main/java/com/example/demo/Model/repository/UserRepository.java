@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	List<User> findByBranchId(int branchId);
 
-	@Query("select u from User u where u.role.roleName='DELIVERY_AGENT'")
-	List<User> getAllDeliveryAgents();
+//	@Query("select u from User u where u.role.roleName='DELIVERY_AGENT'")
+//	List<User> getAllDeliveryAgents();
 
 }
