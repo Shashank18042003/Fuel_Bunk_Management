@@ -1,6 +1,5 @@
 package com.example.demo.Model.pojos;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
