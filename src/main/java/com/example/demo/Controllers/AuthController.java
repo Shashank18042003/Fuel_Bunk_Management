@@ -52,13 +52,13 @@ public class AuthController {
 		model.addAttribute("message", response);
 
 		if (response.equals("USER_DASHBOARD")) {
-	        return "user/user-dashboard";
+	        return "user/userDashboard";
 	    } 
 	    else if (response.equals("ADMIN_DASHBOARD")) {
-	        return "admin/admin-dashboard";
+	        return "admin/admindashboard";
 	    } 
 	    else if (response.startsWith("MANAGER_DASHBOARD")) {
-	        return "manager/manager-dashboard";
+	        return "manager/managerDashboard";
 	    }
 
 	    model.addAttribute("message", response);
