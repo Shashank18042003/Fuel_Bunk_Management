@@ -24,6 +24,6 @@ public class ReportController {
 
 		model.addAttribute("fuelReport", reportService.getFuelConsumptionReport());
 
-		return "reports";
+		return "admin/reports";
 	}
 }

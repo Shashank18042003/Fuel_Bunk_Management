@@ -281,8 +281,7 @@ tbody td {
 				Signed in as <b>Admin</b>
 			</div>
 
-			<button class="logout" onclick="window.location.href='login.jsp'">
-				Logout</button>
+			<button class="logout" onclick="window.location.href='/'">Logout</button>
 
 		</div>
 
@@ -306,10 +305,11 @@ tbody td {
 
 		<div class="tabs">
 
-			<a href="admindashboard.jsp"> Overview </a> <a href="branches.jsp">
-				All Branches </a> <a href="payments.jsp" class="active"> Payments </a> <a
-				href="reports.jsp"> Reports </a> <a href="globalPrices.jsp">
-				Global Prices </a>
+			<a href="/admin/dashboard">Overview</a>
+<a href="/branch/all">All Branches</a>
+<a href="/payment/all">Payments</a>
+<a href="/report/all">Reports</a>
+<a href="/globalprices/prices">Global Prices</a>
 
 		</div>
 

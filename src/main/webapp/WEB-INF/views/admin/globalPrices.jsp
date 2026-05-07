@@ -244,8 +244,7 @@ body {
 				Signed in as <b>Admin</b>
 			</div>
 
-			<button class="logout" onclick="window.location.href='login.jsp'">
-				Logout</button>
+				<button class="logout" onclick="window.location.href='/'">Logout</button>
 		</div>
 
 	</div>
@@ -267,12 +266,11 @@ body {
 		<!-- NAVIGATION -->
 
 		<div class="tabs">
-
-			<a href="admindashboard.jsp"> Overview </a> <a href="branches.jsp">
-				All Branches </a> <a href="payments.jsp"> Payments </a> <a
-				href="reports.jsp"> Reports </a> <a href="globalPrices.jsp"
-				class="active"> Global Prices </a>
-
+<a href="/admin/dashboard">Overview</a>
+<a href="/branch/all">All Branches</a>
+<a href="/payment/all">Payments</a>
+<a href="/report/all">Reports</a>
+<a href="/globalprices/prices">Global Prices</a>
 		</div>
 
 		<!-- PAGE TITLE -->

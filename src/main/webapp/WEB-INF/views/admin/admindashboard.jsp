@@ -221,9 +221,8 @@ body {
 			<div class="admin">
 				Signed in as <b> Admin</b>
 			</div>
+	<button class="logout" onclick="window.location.href='/'">Logout</button>
 
-			<button class="logout" onclick="window.location.href='/'">
-				Logout</button>
 
 		</div>
 
@@ -247,12 +246,11 @@ body {
 
 		<div class="tabs">
 
-			<a href="/admin/dashboard">Overview</a>
+		<a href="/admin/dashboard">Overview</a>
 <a href="/branch/all">All Branches</a>
 <a href="/payment/all">Payments</a>
 <a href="/admin/reports">Reports</a>
-<a href="/admin/prices">Global Prices</a>
-
+<a href="/globalprices/prices">Global Prices</a>
 		</div>
 
 		<!-- CARDS -->

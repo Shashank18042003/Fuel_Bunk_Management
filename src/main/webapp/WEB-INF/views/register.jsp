@@ -165,7 +165,7 @@ input:focus{
 
     <div class="main-title">FuelCore</div>
 
-	</form>
+	
 
     <div class="subtitle">
         Create your FuelCore account
@@ -173,14 +173,15 @@ input:focus{
 
     <div class="container">
 
-        <form action="register" method="post">
+        <form action="registerUser" method="post">
 
             <!-- NAME -->
             <label>Full Name</label>
 
             <input type="text" name="name"
                 placeholder="Enter your full name">
-
+<input type="hidden" name="role" value="user"
+                >
             <!-- EMAIL -->
             <label>Email</label>
 
