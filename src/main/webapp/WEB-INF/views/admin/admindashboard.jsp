@@ -222,7 +222,7 @@ body {
 				Signed in as <b> Admin</b>
 			</div>
 
-			<button class="logout" onclick="window.location.href='login.jsp'">
+			<button class="logout" onclick="window.location.href='/'">
 				Logout</button>
 
 		</div>
@@ -247,10 +247,11 @@ body {
 
 		<div class="tabs">
 
-			<a href="adminDashboard.jsp" class="active"> Overview </a> <a
-				href="branches.jsp"> All Branches </a> <a href="payments.jsp">
-				Payments </a> <a href="reports.jsp"> Reports </a> <a
-				href="globalPrices.jsp"> Global Prices </a>
+			<a href="/admin/dashboard">Overview</a>
+<a href="/branch/all">All Branches</a>
+<a href="/payment/all">Payments</a>
+<a href="/admin/reports">Reports</a>
+<a href="/admin/prices">Global Prices</a>
 
 		</div>
 

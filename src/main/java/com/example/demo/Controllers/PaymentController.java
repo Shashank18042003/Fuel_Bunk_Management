@@ -23,7 +23,7 @@ public class PaymentController {
 
 		model.addAttribute("payments", paymentService.getAllPayments());
 
-		return "payments";
+		return "admin/payments";
 	}
 
 	@GetMapping("/add")
@@ -39,6 +39,7 @@ public class PaymentController {
 
 		paymentService.makePayment(payment);
 
+//		return "redirect:/payment/all";
 		return "redirect:/payment/all";
 	}
 }

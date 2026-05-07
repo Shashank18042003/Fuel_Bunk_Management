@@ -3,9 +3,10 @@ package com.example.demo.util;
 import java.security.Key;
 import java.util.Date;
 
+import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtil {

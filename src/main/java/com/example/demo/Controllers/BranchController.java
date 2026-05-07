@@ -23,9 +23,8 @@ public class BranchController {
 
 		model.addAttribute("branches", branchService.getAllBranches());
 
-		return "branches";
+		return "admin/branches";
 	}
-
 	@GetMapping("/add")
 	public String addBranchPage(Model model) {
 
@@ -39,6 +38,6 @@ public class BranchController {
 
 		branchService.addBranch(branch);
 
-		return "redirect:/branch/all";
+		return "redirect:branch/all";
 	}
 }

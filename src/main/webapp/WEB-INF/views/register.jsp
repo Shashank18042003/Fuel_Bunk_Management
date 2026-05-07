@@ -201,7 +201,7 @@ input:focus{
             <!-- LOGIN LINK -->
             <div class="login-link">
                 Already have an account?
-                <a href="login.jsp">Login Here</a>
+                <a href="/">Login Here</a>
             </div>
 
         </form>
