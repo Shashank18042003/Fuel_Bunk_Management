@@ -222,7 +222,7 @@ body {
 				Signed in as <b> Admin</b>
 			</div>
 
-			<button class="logout" onclick="window.location.href='login.jsp'">
+			<button class="logout" onclick="window.location.href='/'">
 				Logout</button>
 
 		</div>

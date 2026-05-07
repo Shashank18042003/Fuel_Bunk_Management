@@ -334,7 +334,7 @@ body{
         </div>
 
         <button class="logout"
-        onclick="window.location.href='login.jsp'">
+        onclick="window.location.href='/'">
 
             Logout
 

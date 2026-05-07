@@ -168,7 +168,7 @@ input:focus{
 
     <div class="container">
 
-        <form action="register" method="post">
+        <form action="/registerUser" method="post">
 
             <!-- NAME -->
             <label>Full Name</label>
@@ -196,7 +196,7 @@ input:focus{
             <!-- LOGIN LINK -->
             <div class="login-link">
                 Already have an account?
-                <a href="login.jsp">Login Here</a>
+                <a href="/">Login Here</a>
             </div>
 
         </form>

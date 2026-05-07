@@ -222,7 +222,7 @@ input:focus{
             <!-- REGISTER HERE -->
             <div class="register">
                 Don’t have an account?
-                <a href="register.jsp">Register Here</a>
+                <a href="/register">Register Here</a>
             </div>
 
         </form>

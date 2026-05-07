@@ -14,42 +14,55 @@ import com.example.demo.Model.serviceDesign.AuthService;
 @Controller
 public class AuthController {
 
-	@Autowired
-	private AuthService authService;
+		
+		@Autowired
+		private AuthService authService;
 
-	@GetMapping("/")
-	public String loginPage(Model model) {
+		@GetMapping("/")
+		public String loginPage(Model model) {
 
-		model.addAttribute("user", new User());
+			model.addAttribute("user", new User());
 
-		return "login";
-	}
+			return "login";
+		}
 
-	@GetMapping("/register")
-	public String registerPage(Model model) {
+		@GetMapping("/register")
+		public String registerPage(Model model) {
 
-		model.addAttribute("user", new User());
+			model.addAttribute("user", new User());
 
-		return "register";
-	}
+			return "register";
+		}
 
-	@PostMapping("/registerUser")
-	public String registerUser(@ModelAttribute User user, Model model) {
+		@PostMapping("/registerUser")
+		public String registerUser(@ModelAttribute User user, Model model) {
 
-		authService.registerUser(user);
+			authService.registerUser(user);
 
-		model.addAttribute("success", "Registration Successful");
+			model.addAttribute("success", "Registration Successful");
 
-		return "login";
-	}
+			return "login";
+		}
 
-	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, Model model) {
+		@PostMapping("/login")
+		public String login(@RequestParam String email, @RequestParam String password,String role, Model model) {
 
-		String response = authService.login(email, password);
+			String response = authService.login(email, password);
 
-		model.addAttribute("message", response);
+			if (response.equals("INVALID_CREDENTIALS")) {
+				model.addAttribute("message", "Invalid email or password");
+				return "login";
+			}
+			
+			if(email.equals("admin@gmail.com") && password.equals("admin123")) {
+				return "admin/admindashboard";
+			}
+			else if(email.equals("manager1@gmail.com") && password.equals("manager123")) {
+				return "manager/managerDashboard";
+			}
+			else {
+				return "user/userDashboard";
+			}
 
-		return "dashboard";
-	}
+		}
 }
