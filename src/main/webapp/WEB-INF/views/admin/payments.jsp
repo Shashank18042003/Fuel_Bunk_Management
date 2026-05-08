@@ -281,7 +281,7 @@ tbody td {
 				Signed in as <b>Admin</b>
 			</div>
 
-			<button class="logout" onclick="window.location.href='/'">Logout</button>
+			<button class="logout" onclick="window.location.href='/logout'">Logout</button>
 
 		</div>
 

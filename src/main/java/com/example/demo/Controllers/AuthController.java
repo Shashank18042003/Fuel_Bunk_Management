@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Model.pojos.User;
 import com.example.demo.Model.serviceDesign.AuthService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class AuthController {
@@ -45,24 +47,33 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password,String role, Model model) {
+	public String login(@RequestParam String email,
+	                    @RequestParam String password,
+	                    HttpSession session,
+	                    Model model) {
 
-		String response = authService.login(email, password);
+	    try {
+	        User user = authService.login(email, password);
 
-		model.addAttribute("message", response);
+	        // ✅ store user in session
+	        session.setAttribute("loggedUser", user);
+	        
+	        // ✅ role-based redirect
+	        if (user.getRole().equalsIgnoreCase("USER")) {
+	            return "user/userDashboard";
+	        } 
+	        else if (user.getRole().equalsIgnoreCase("ADMIN")) {
+	            return "admin/admindashboard";
+	        } 
+	        else if (user.getRole().equalsIgnoreCase("MANAGER")) {
+	            return "manager/managerDashboard";
+	        }
 
-		if (response.equals("USER_DASHBOARD")) {
-	        return "user/userDashboard";
-	    } 
-	    else if (response.equals("ADMIN_DASHBOARD")) {
-	        return "admin/admindashboard";
-	    } 
-	    else if (response.startsWith("MANAGER_DASHBOARD")) {
-	        return "manager/managerDashboard";
+	    } catch (RuntimeException e) {
+	        model.addAttribute("message", e.getMessage());
+	        return "login";
 	    }
 
-	    model.addAttribute("message", response);
 	    return "login";
-
 	}
 }

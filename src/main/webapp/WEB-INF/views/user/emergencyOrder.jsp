@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -346,11 +346,16 @@ input[type="range"] {
 
 			<div class="user-box">
 
-				Signed in as <b>Kiran Reddy</b> <span class="role"> USER </span>
+				
+            Signed in as <b>${sessionScope.loggedUser.fullName}</b>
+
+            <span class="role">
+                 ${sessionScope.loggedUser.role}
+            </span>
 
 			</div>
 
-			<button class="logout" onclick="window.location.href='login.jsp'">
+			<button class="logout" onclick="window.location.href='/logout'">
 
 				Logout</button>
 
@@ -366,9 +371,17 @@ input[type="range"] {
 
 		<div class="tabs">
 
-			<a href="userDashboard.jsp"> Fuel Status </a> <a
-				href="emergencyOrder.jsp" class="active"> Emergency Order </a> <a
-				href="myOrders.jsp"> My Orders </a>
+			 <a href="user/dashboard" class="active">
+            Fuel Status
+        </a>
+
+        <a href="user/fuelorder">
+            Emergency Order
+        </a>
+
+        <a href="user/myorders">
+            My Orders
+        </a>
 
 		</div>
 

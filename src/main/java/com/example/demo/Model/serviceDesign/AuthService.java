@@ -5,7 +5,7 @@ import com.example.demo.Model.pojos.User;
 public interface AuthService {
 	
     User registerUser(User user);
-    String login(String email, String password);
+    public User login(String email, String password);
     User getUserByEmail(String email);
 
 }

@@ -32,39 +32,24 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(String email, String password) {
+    public User login(String email, String password) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid Email"));
 
-        // ✅ Password check
+        // Password check
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid Password");
         }
 
-        // ✅ Get role from DB (IMPORTANT)
-        String role = user.getRole();
-
-        // ✅ Role-based response
-        if (role.equalsIgnoreCase("USER")) {
-            return "USER_DASHBOARD";
-        } 
-        else if (role.equalsIgnoreCase("ADMIN")) {
-            return "ADMIN_DASHBOARD";
-        } 
-        else if (role.equalsIgnoreCase("MANAGER")) {
-
-            // Manager must have branch
-            if (user.getBranch() == null) {
-                throw new RuntimeException("Branch not assigned");
-            }
-
-            return "MANAGER_DASHBOARD_" + user.getBranch().getId();
+        // Manager must have branch
+        if (user.getRole().equalsIgnoreCase("MANAGER") && user.getBranch() == null) {
+            throw new RuntimeException("Branch not assigned");
         }
 
-        throw new RuntimeException("Invalid Role");
+        return user; // ✅ return full user
     }
-
+    
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)

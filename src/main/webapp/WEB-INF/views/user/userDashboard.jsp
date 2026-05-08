@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -327,16 +328,16 @@ body{
 
         <div class="user-box">
 
-            Signed in as <b>Kiran Reddy</b>
+            Signed in as <b>${sessionScope.loggedUser.fullName}</b>
 
             <span class="role">
-                USER
+                 ${sessionScope.loggedUser.role}
             </span>
 
         </div>
 
         <button class="logout"
-        onclick="window.location.href='login.jsp'">
+        onclick="window.location.href='/logout'">
 
             Logout
 
@@ -354,15 +355,15 @@ body{
 
     <div class="tabs">
 
-        <a href="userDashboard.jsp" class="active">
+        <a href="user/dashboard" class="active">
             Fuel Status
         </a>
 
-        <a href="emergencyOrder.jsp">
+        <a href="user/fuelorder">
             Emergency Order
         </a>
 
-        <a href="myOrders.jsp">
+        <a href="user/myorders">
             My Orders
         </a>
 
