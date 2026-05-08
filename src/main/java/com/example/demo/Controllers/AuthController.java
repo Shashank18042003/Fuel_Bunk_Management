@@ -1,68 +1,150 @@
 package com.example.demo.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Model.pojos.User;
-import com.example.demo.Model.serviceDesign.AuthService;
+import com.example.demo.Model.serviceImp.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
 
-		
-		@Autowired
-		private AuthService authService;
+	// ================= SERVICE =================
 
-		@GetMapping("/")
-		public String loginPage(Model model) {
+	private final UserService userService;
 
-			model.addAttribute("user", new User());
+	// ================= CONSTRUCTOR =================
 
-			return "login";
+	public AuthController(UserService userService) {
+
+		this.userService = userService;
+	}
+
+	// ================= INDEX =================
+
+	@GetMapping("/")
+	public String index() {
+
+		return "redirect:/login";
+	}
+
+	// ================= LOGIN PAGE =================
+
+	@GetMapping("/login")
+	public String loginPage(
+
+			@RequestParam(value = "error", required = false) String error,
+
+			@RequestParam(value = "logout", required = false) String logout,
+
+			Model model) {
+
+		// LOGIN ERROR
+
+		if (error != null) {
+
+			model.addAttribute(
+
+					"errorMessage",
+
+					"Invalid email or password.");
 		}
 
-		@GetMapping("/register")
-		public String registerPage(Model model) {
+		// LOGOUT SUCCESS
 
-			model.addAttribute("user", new User());
+		if (logout != null) {
 
-			return "register";
+			model.addAttribute(
+
+					"successMessage",
+
+					"Logged out successfully.");
 		}
 
-		@PostMapping("/registerUser")
-		public String registerUser(@ModelAttribute User user, Model model) {
+		return "auth/login";
+	}
 
-			authService.registerUser(user);
+	// ================= REGISTER PAGE =================
 
-			model.addAttribute("success", "Registration Successful");
+	@GetMapping("/register")
+	public String registerPage(Model model) {
 
-			return "login";
+		model.addAttribute(
+
+				"user",
+
+				new User());
+
+		return "auth/register";
+	}
+
+	// ================= REGISTER USER =================
+
+	@PostMapping("/register")
+	public String register(
+
+			@Valid @ModelAttribute("user") User user,
+
+			BindingResult result,
+
+			@RequestParam("confirmPassword") String confirmPassword,
+
+			RedirectAttributes redirectAttributes,
+
+			Model model) {
+
+		// VALIDATION ERRORS
+
+		if (result.hasErrors()) {
+
+			return "auth/register";
 		}
 
-		@PostMapping("/login")
-		public String login(@RequestParam String email, @RequestParam String password,String role, Model model) {
+		// PASSWORD CHECK
 
-			String response = authService.login(email, password);
+		if (!user.getPassword().equals(confirmPassword)) {
 
-			if (response.equals("INVALID_CREDENTIALS")) {
-				model.addAttribute("message", "Invalid email or password");
-				return "login";
-			}
-			
-			if(email.equals("admin@gmail.com") && password.equals("admin123")) {
-				return "admin/admindashboard";
-			}
-			else if(email.equals("manager1@gmail.com") && password.equals("manager123")) {
-				return "manager/managerDashboard";
-			}
-			else {
-				return "user/userDashboard";
-			}
+			model.addAttribute(
 
+					"errorMessage",
+
+					"Passwords do not match.");
+
+			return "auth/register";
 		}
+
+		try {
+
+			// REGISTER USER
+
+			userService.register(user);
+
+			redirectAttributes.addFlashAttribute(
+
+					"successMessage",
+
+					"Registration successful. Please login.");
+
+			return "redirect:/login";
+		}
+
+		catch (RuntimeException e) {
+
+			model.addAttribute(
+
+					"errorMessage",
+
+					e.getMessage());
+
+			return "auth/register";
+		}
+	}
 }

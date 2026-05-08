@@ -2,12 +2,12 @@ package com.example.demo.Model.serviceDesign;
 
 import java.util.List;
 
-import com.example.demo.Model.pojos.Notification;
+import com.example.demo.Model.pojos.OrderStatusHistory;
 
 public interface NotificationService {
 	
-	Notification sendNotification(Notification notification);
-    List<Notification> getNotificationsByUser(int userId);
+	OrderStatusHistory sendNotification(OrderStatusHistory notification);
+    List<OrderStatusHistory> getNotificationsByUser(int userId);
     void markAsRead(int notificationId);
 
 }

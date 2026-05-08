@@ -18,77 +18,29 @@ import com.example.demo.Model.serviceDesign.DeliveryService;
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
-    @Autowired
-    private DeliveryRepository deliveryRepository;
+	@Override
+	public Delivery assignDeliveryAgent(int orderId, int agentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Autowired
-    private OrderRepository orderRepository;
+	@Override
+	public Delivery updateDeliveryStatus(int deliveryId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Autowired
-    private UserRepository userRepository;
+	@Override
+	public Delivery getDeliveryByOrderId(int orderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public Delivery assignDeliveryAgent(int orderId,
-                                        int agentId) {
+	@Override
+	public List<Delivery> getAllDeliveries() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        Order order =
-                orderRepository.findById(orderId)
-                .orElseThrow(() ->
-                        new RuntimeException("Order Not Found"));
-
-        User agent =
-                userRepository.findById(agentId)
-                .orElseThrow(() ->
-                        new RuntimeException("Agent Not Found"));
-
-        Delivery delivery = new Delivery();
-
-        delivery.setOrder(order);
-        delivery.setDeliveryAgent(agent);
-        delivery.setStatus("ASSIGNED");
-        delivery.setDispatchTime(LocalDateTime.now());
-
-        order.setOrderStatus("DISPATCHED");
-
-        orderRepository.save(order);
-
-        return deliveryRepository.save(delivery);
-    }
-
-    @Override
-    public Delivery updateDeliveryStatus(int deliveryId,
-                                         String status) {
-
-        Delivery delivery =
-                deliveryRepository.findById(deliveryId)
-                .orElseThrow(() ->
-                        new RuntimeException("Delivery Not Found"));
-
-        delivery.setStatus(status);
-
-        if(status.equalsIgnoreCase("DELIVERED")) {
-
-            delivery.setDeliveryTime(LocalDateTime.now());
-
-            Order order = delivery.getOrder();
-
-            order.setOrderStatus("DELIVERED");
-
-            orderRepository.save(order);
-        }
-
-        return deliveryRepository.save(delivery);
-    }
-
-    @Override
-    public Delivery getDeliveryByOrderId(int orderId) {
-
-        return deliveryRepository.findByOrderId(orderId);
-    }
-
-    @Override
-    public List<Delivery> getAllDeliveries() {
-
-        return deliveryRepository.findAll();
-    }
+    
 }
